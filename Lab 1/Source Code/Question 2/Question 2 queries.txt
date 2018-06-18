@@ -1,0 +1,95 @@
+
+----------------------------CASSANDRA Use case -----------------------------------------------------
+
+
+
+
+create keyspace coursera with replication={'class':'SimpleStrategy','replication_factor':2};
+cqlsh> use coursera;
+
+// Creating the table with required 
+create table if not exists coursera_details (
+learner_id int PRIMARY KEY,
+course_id int,
+course_name  text,
+course_duartion int,
+tutor_name text);
+
+
+
+// Insert commands
+
+INSERT into coursera.coursera_details(learner_id,course_id,course_name,course_duartion,tutor_name)values (1,123,'Bigdata',6,'Jack');
+
+INSERT into coursera.coursera_details(learner_id,course_id,course_name,course_duartion,tutor_name)values (2,124,'Software Engineering',7,'Jim');
+
+
+INSERT into coursera.coursera_details(learner_id,course_id,course_name,course_duartion,tutor_name)values (3,125,'Statstical Learning',2,'Sam');
+
+
+INSERT into coursera.coursera_details(learner_id,course_id,course_name,course_duartion,tutor_name)values (4,126,'Cloud Computing',6,'Bill');
+
+
+INSERT into coursera.coursera_details(learner_id,course_id,course_name,course_duartion,tutor_name)values (5,127,'Hadoop eco system',6,'Roy');
+
+INSERT into coursera.coursera_details(learner_id,course_id,course_name,course_duartion,tutor_name)values (6,128,'Cloud Computing',4,'Lee');
+
+
+Query - 1 (UPDATE DATA)
+
+//Update statement for updating the course details FROM course_duartion -2 ,course_name Statstical Learning TO 5 and Introduction to Statstical Learning
+
+Update coursera.coursera_details set course_duartion =5 ,course_name='Introduction to Statstical Learning' where learner_id=3;
+
+
+
+Query - 2 (SELECT DATA)
+
+// Select statement for reading the data with filtering 
+
+select tutor_name from coursera.coursera_details where course_name='Cloud Computing' ALLOW FILTERING;
+
+
+Query - 3(DELETE DATA)
+
+// Deleting the data from the table
+
+DELETE from coursera.coursera_details where learner_id = 2;
+
+
+
+--------------------------HBASE UseCase-------------------------------------------------------------------------
+create 'coursera', 'coursera_details'
+
+
+> put 'coursera', '1', 'coursera_details:learner_Id' ,'1'
+> put 'coursera', '1', 'coursera_details:course_id' , '123'
+> put 'coursera', '1', 'coursera_details:course_name', 'Bigdata'
+> put 'coursera', '1', 'coursera_details:course_duration', '6'
+> put 'coursera', '1', 'coursera_details:tutor_name', 'Jack'
+> put 'coursera', '2', 'coursera_details:learner_Id' ,'2'
+> put 'coursera', '2', 'coursera_details:course_id' , '124'
+> put 'coursera', '2', 'coursera_details:course_name', 'Software Engineering'
+> put 'coursera', '2', 'coursera_details:course_duration', '7'
+> put 'coursera', '2', 'coursera_details:tutor_name', 'Jim'
+
+
+
+
+
+updating 
+
+put 'coursera', '2', 'coursera_details:course_name', 'Sattistical Learning'
+
+
+
+Selecting:
+
+get 'coursera', '1'
+get 'coursera', '2'
+
+
+Deleting:
+
+deleteall 'coursera','1'
+
